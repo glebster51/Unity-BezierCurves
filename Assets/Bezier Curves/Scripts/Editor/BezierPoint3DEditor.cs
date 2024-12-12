@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 
 namespace BezierCurves
@@ -56,15 +56,15 @@ namespace BezierCurves
             BezierCurve3DEditor.DrawPointsSceneGUI(this.point.Curve, this.point);
 
             BezierPoint3DEditor.handleCapSize = BezierPoint3DEditor.SphereCapSize;
-            BezierPoint3DEditor.DrawPointSceneGUI(this.point, Handles.DotCap, Handles.SphereCap);
+            BezierPoint3DEditor.DrawPointSceneGUI(this.point, Handles.DotHandleCap, Handles.SphereHandleCap);
         }
 
         public static void DrawPointSceneGUI(BezierPoint3D point)
         {
-            DrawPointSceneGUI(point, Handles.RectangleCap, Handles.CircleCap);
+            DrawPointSceneGUI(point, Handles.RectangleHandleCap, Handles.CircleHandleCap);
         }
 
-        public static void DrawPointSceneGUI(BezierPoint3D point, Handles.DrawCapFunction drawPointFunc, Handles.DrawCapFunction drawHandleFunc)
+        public static void DrawPointSceneGUI(BezierPoint3D point, Handles.CapFunction drawPointFunc, Handles.CapFunction drawHandleFunc)
         {
             // Draw a label for the point
             Handles.color = Color.black;
@@ -72,8 +72,11 @@ namespace BezierCurves
 
             // Draw the center of the control point
             Handles.color = Color.yellow;
-            Vector3 newPointPosition = Handles.FreeMoveHandle(point.Position, point.transform.rotation,
-                HandleUtility.GetHandleSize(point.Position) * BezierPoint3DEditor.pointCapSize, Vector3.one * 0.5f, drawPointFunc);
+            var fmh_77_17_638694802418781767 = Quaternion.identity; Vector3 newPointPosition = Handles.FreeMoveHandle(
+                point.Position,
+                HandleUtility.GetHandleSize(point.Position) * BezierPoint3DEditor.pointCapSize,
+                Vector3.one * 0.5f,
+                drawPointFunc);
 
             if (point.Position != newPointPosition)
             {
@@ -87,8 +90,11 @@ namespace BezierCurves
             Handles.DrawLine(point.Position, point.RightHandlePosition);
 
             Handles.color = Color.cyan;
-            Vector3 newLeftHandlePosition = Handles.FreeMoveHandle(point.LeftHandlePosition, point.transform.rotation,
-                HandleUtility.GetHandleSize(point.LeftHandlePosition) * BezierPoint3DEditor.handleCapSize, Vector3.zero, drawHandleFunc);
+            var fmh_96_17_638694802418801998 = Quaternion.identity; Vector3 newLeftHandlePosition = Handles.FreeMoveHandle(
+                point.LeftHandlePosition,
+                HandleUtility.GetHandleSize(point.LeftHandlePosition) * BezierPoint3DEditor.handleCapSize,
+                Vector3.zero,
+                drawHandleFunc);
 
             if (point.LeftHandlePosition != newLeftHandlePosition)
             {
@@ -96,8 +102,11 @@ namespace BezierCurves
                 point.LeftHandlePosition = newLeftHandlePosition;
             }
 
-            Vector3 newRightHandlePosition = Handles.FreeMoveHandle(point.RightHandlePosition, point.transform.rotation,
-                HandleUtility.GetHandleSize(point.RightHandlePosition) * BezierPoint3DEditor.handleCapSize, Vector3.zero, drawHandleFunc);
+            var fmh_109_17_638694802418807355 = Quaternion.identity; Vector3 newRightHandlePosition = Handles.FreeMoveHandle(
+                point.RightHandlePosition,
+                HandleUtility.GetHandleSize(point.RightHandlePosition) * BezierPoint3DEditor.handleCapSize,
+                Vector3.zero,
+                drawHandleFunc);
 
             if (point.RightHandlePosition != newRightHandlePosition)
             {
